@@ -2,11 +2,11 @@ FROM node:lts-alpine as source
 WORKDIR /app
 
 COPY package* /app/
-RUN npm ci
+RUN npm ci --omit=dev
 COPY . /app
 
 FROM source as build
-RUN npx svelte-kit sync && npm run build
+RUN npm ci && npx svelte-kit sync && npm run build
 
 FROM node:lts-alpine
 LABEL org.opencontainers.image.source https://github.com/mfinelli/statstag
