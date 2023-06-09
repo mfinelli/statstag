@@ -17,4 +17,8 @@ terraform {
   }
 }
 
-provider "fly" {}
+provider "fly" {
+  useinternaltunnel    = true
+  internaltunnelorg    = "personal"
+  internaltunnelregion = "iad" # nova
+}
