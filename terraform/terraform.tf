@@ -18,5 +18,5 @@ terraform {
 }
 
 provider "fly" {
-  fly_http_endpoint = "https://api.machines.dev"
+  fly_http_endpoint = "api.machines.dev"
 }
