@@ -9,6 +9,7 @@ FROM source as build
 RUN npm run build
 
 FROM node:lts-alpine
+LABEL org.opencontainers.image.source https://github.com/mfinelli/statstag
 WORKDIR /usr/share/statstag
 COPY --from=source /app /usr/src/statstag/
 COPY --from=build /app/entry.js .
