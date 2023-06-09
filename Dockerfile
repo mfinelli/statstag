@@ -6,7 +6,7 @@ RUN npm ci
 COPY . /app
 
 FROM source as build
-RUN npm run build
+RUN npx svelte-kit sync && npm run build
 
 FROM node:lts-alpine
 LABEL org.opencontainers.image.source https://github.com/mfinelli/statstag
