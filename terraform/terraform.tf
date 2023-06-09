@@ -18,7 +18,5 @@ terraform {
 }
 
 provider "fly" {
-  useinternaltunnel    = true
-  internaltunnelorg    = "personal"
-  internaltunnelregion = "iad" # nova
+  fly_http_endpoint = "https://api.machines.dev"
 }
