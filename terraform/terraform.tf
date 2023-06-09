@@ -10,11 +10,11 @@ terraform {
   }
 
   required_providers {
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
+    fly = {
+      source  = "fly-apps/fly"
+      version = "~> 0.0"
     }
   }
 }
 
-provider "random" {}
+provider "fly" {}

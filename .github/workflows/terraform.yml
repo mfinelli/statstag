@@ -38,11 +38,14 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       - run: terraform init -input=false
         env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
       - run: terraform plan -input=false -out=prod.plan
         env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
       - run: terraform apply -input=false prod.plan
         if: ${{ github.ref == 'refs/heads/master' }}
         env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
