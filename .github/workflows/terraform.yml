@@ -1,0 +1,48 @@
+---
+name: Terraform
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - terraform/**/*
+  pull_request:
+    branches:
+      - master
+    paths:
+      - terraform/**/*
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      TF_IN_AUTOMATION: 'true'
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - run: terraform fmt -check -recursive
+
+  main:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    env:
+      TF_IN_AUTOMATION: 'true'
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - run: terraform init -input=false
+        env:
+          TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
+      - run: terraform plan -input=false -out=prod.plan
+        env:
+          TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
+      - run: terraform apply -input=false prod.plan
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
