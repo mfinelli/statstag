@@ -19,7 +19,7 @@ LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later
 
 WORKDIR /usr/share/statstag
 COPY --from=source /app /usr/src/statstag/
-COPY --from=build /app/entry.js .
+COPY --from=build /app/server.js .
 COPY --from=build /app/build .
 COPY --from=build /app/package.json .
-CMD ["node", "entry.js"]
+CMD ["node", "server.js"]
