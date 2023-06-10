@@ -28,4 +28,8 @@ resource "fly_machine" "app" {
       ]
     },
   ]
+
+  lifecycle {
+    ignore_changes = [image]
+  }
 }
