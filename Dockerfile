@@ -9,7 +9,14 @@ FROM source as build
 RUN npm ci && npx svelte-kit sync && npm run build
 
 FROM node:lts-alpine
+
+LABEL org.opencontainers.image.title=statstag
+LABEL org.opencontainers.image.version=0.0.1
+LABEL org.opencontainers.image.description="a custom leaderboard app"
+LABEL org.opencontainers.image.url=https://github.com/mfinelli/statstag
 LABEL org.opencontainers.image.source https://github.com/mfinelli/statstag
+LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later
+
 WORKDIR /usr/share/statstag
 COPY --from=source /app /usr/src/statstag/
 COPY --from=build /app/entry.js .
