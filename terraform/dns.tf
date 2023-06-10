@@ -8,6 +8,7 @@ resource "cloudflare_record" "apex" {
   name    = data.cloudflare_zone.statstag.name
   type    = "AAAA"
   ttl     = 1
+  proxied = true
   value   = fly_ip.v6.address
 }
 
@@ -22,7 +23,7 @@ resource "cloudflare_record" "verification" {
 
   type    = "CNAME"
   ttl     = 1
-  proxied = true
+  proxied = false
   value   = fly_cert.statstag.dnsvalidationtarget
 
   name = replace(
