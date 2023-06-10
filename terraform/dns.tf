@@ -27,7 +27,7 @@ resource "cloudflare_record" "verification" {
 
   name = replace(
     fly_cert.statstag.dnsvalidationhostname,
-    ".${cloudflare_zone.statstag.name}",
+    ".${data.cloudflare_zone.statstag.name}",
     ""
   )
 }
