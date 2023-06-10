@@ -3,6 +3,17 @@ import express from 'express';
 
 const app = express();
 
+// don't allow the app to operate on its fly.dev domain
+const flydev = (req, res, next) => {
+  if (req.headers.host !== 'statstag.com') {
+    res.redirect('https://statstag.com');
+  } else {
+    next();
+  }
+};
+
+app.use(flydev);
+
 app.use(handler);
 
 const server = app.listen(3000, () => {
