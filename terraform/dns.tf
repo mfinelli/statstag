@@ -5,7 +5,7 @@ data "cloudflare_zone" "statstag" {
 
 resource "cloudflare_record" "apex" {
   zone_id = data.cloudflare_zone.statstag.id
-  name    = data.cloudflare_zone.statstag.zone
+  name    = data.cloudflare_zone.statstag.name
   type    = "AAAA"
   ttl     = 1
   value   = fly_ip.v6.address
