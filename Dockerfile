@@ -18,8 +18,12 @@ LABEL org.opencontainers.image.source https://github.com/mfinelli/statstag
 LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later
 
 WORKDIR /usr/share/statstag
+RUN addgroup -S statstag && adduser -S statstag -G statstag
+
 COPY --from=source /app /usr/src/statstag/
 COPY --from=build /app/server.js .
 COPY --from=build /app/build .
 COPY --from=build /app/package.json .
+
+USER statstag
 CMD ["node", "server.js"]
