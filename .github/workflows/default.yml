@@ -89,13 +89,13 @@ jobs:
       #       can probably come up with something a little more clever
       - run: >
           echo "id=$(flyctl machines list --json | jq -r '.[] |
-          select(.name==\"app\") | .id')" >> $GITHUB_OUTPUT
+          select(.name=="app") | .id')" >> $GITHUB_OUTPUT
         id: fly-machine
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - run: >
-          flyctl machines update --image mfinelli/statstag:"$(sed -e
+          flyctl machines update --image "mfinelli/statstag:$(sed -e
           "s|^refs/tags/v||" <<< "${{ github.ref }}")" "${{
           steps.fly-machine.outputs.id }}"
         env:
