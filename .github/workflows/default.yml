@@ -95,8 +95,8 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - run: >
-          flyctl machines update --image "mfinelli/statstag:$(sed -e
-          "s|^refs/tags/v||" <<< "${{ github.ref }}")" "${{
-          steps.fly-machine.outputs.id }}"
+          flyctl machines update "${{ steps.fly-machine.outputs.id }}" --yes
+          --image "mfinelli/statstag:$(sed -e "s|^refs/tags/v||" <<< "${{
+          github.ref }}")"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
