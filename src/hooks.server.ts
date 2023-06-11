@@ -1,4 +1,4 @@
-import type Handle from '@sveltejs/kit';
+// import type Handle from '@sveltejs/kit';
 import { pool } from '$lib/server/db';
 
 export async function handle({ event, resolve }) {

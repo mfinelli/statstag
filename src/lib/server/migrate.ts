@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import type { DatabasePool } from 'slonik';
-import { createPool, createSqlTag } from 'slonik';
+import { createSqlTag } from 'slonik';
 import { raw } from 'slonik-sql-tag-raw';
 import { z } from 'zod';
 
