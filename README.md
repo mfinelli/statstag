@@ -26,10 +26,10 @@ applied they will need to be applied manually using `psql`.
 
 ### creating new migration files
 
-In the event that I can one day switch to the `@slonik/migrator` tool which
-uses [umzug](https://github.com/sequelize/umzug) under the hood, migration
-files should follow their pattern. You can create new migrations using a simple
-shell command:
+In the event that I can one day switch to the `@slonik/migrator` tool which uses
+[umzug](https://github.com/sequelize/umzug) under the hood, migration files
+should follow their pattern. You can create new migrations using a simple shell
+command:
 
 ```shell
 touch migrations/{down/,}$(date '+%Y.%m.%dT%H.%M.%S').migration_name.sql
