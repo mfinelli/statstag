@@ -1,7 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
-import { pool } from '$lib/server/db';
+import { initDB } from '$lib/server/db';
 
 export const handle: Handle = async ({ event, resolve }) => {
-  event.locals.db = pool;
+  event.locals.db ||= await initDB();
   return await resolve(event);
-}
+};
