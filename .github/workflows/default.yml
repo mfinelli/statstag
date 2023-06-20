@@ -13,11 +13,7 @@ on:
 jobs:
   main:
     name: lint/test
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:alpine
@@ -43,14 +39,10 @@ jobs:
       - run: npx playwright install chrome
       - run: npx playwright install msedge
       - run: npm run check
-        if: matrix.os == 'ubuntu-latest'
       - run: npm run lint
-        if: matrix.os == 'ubuntu-latest'
       - run: npm run test:unit
-        if: matrix.os == 'ubuntu-latest'
       - run: npm run test
       - run: npm run build
-        if: matrix.os == 'ubuntu-latest'
 
   docker:
     runs-on: ubuntu-latest
