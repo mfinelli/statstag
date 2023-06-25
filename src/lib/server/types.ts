@@ -17,6 +17,12 @@ export const sql = createSqlTag({
         score: z.number(),
       })
       .strict(),
+    id: z.object({
+      id: z.number(),
+    }),
+    slug: z.object({
+      slug: z.string(),
+    }),
     void: z.object({}).strict(),
   },
 });

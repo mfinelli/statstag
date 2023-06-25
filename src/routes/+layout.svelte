@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "mvp.css"
+  import 'mvp.css';
 </script>
 
 <main>
