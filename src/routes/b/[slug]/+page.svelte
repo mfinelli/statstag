@@ -53,5 +53,7 @@
 {/if}
 
 {#each data.scores as score}
-  <p>{score.label}: {score.score}</p>
+  <p>{score['label']}: {score['score']}</p>
+  <button>+</button>
+  <button>-</button>
 {/each}
