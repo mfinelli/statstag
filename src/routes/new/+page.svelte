@@ -21,13 +21,6 @@
 
 <form on:submit|preventDefault={submit}>
   <label for="name">Name</label>
-  <input
-    id="name"
-    name="name"
-    placeholder="name"
-    type="text"
-    bind:value={name}
-    required
-  />
+  <input id="name" placeholder="name" type="text" bind:value={name} required />
   <button type="submit">Create</button>
 </form>
