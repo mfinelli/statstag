@@ -27,7 +27,7 @@ export const load: PageServerLoad<Leaderboard> = async ({ locals, params }) => {
         id, name, slug FROM leaderboards WHERE slug = ${params.slug} LIMIT 1;`);
 
       if (leaderboard === null) {
-        throw redirect(307, '/not-found');
+        throw redirect(307, '/404');
       }
 
       scores = await txn.any(sql.typeAlias('score')`SELECT id, label, score
