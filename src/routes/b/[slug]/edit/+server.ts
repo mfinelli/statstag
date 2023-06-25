@@ -19,11 +19,11 @@ export const POST: RequestHandler = async ({
 
   await locals.db.connect(async (c) => {
     await c.transaction(async (txn) => {
-      let lb = await txn.one(sql.typeAlias('id')`SELECT id FROM leaderboards
+      const lb = await txn.one(sql.typeAlias('id')`SELECT id FROM leaderboards
         WHERE id = ${id} and slug = ${slug} LIMIT 1;`);
 
       await txn.query(sql.typeAlias('void')`UPDATE leaderboards
-        SET name = ${name}, updated_at = NOW()  WHERE id = ${id}`);
+        SET name = ${name}, updated_at = NOW()  WHERE id = ${lb.id}`);
     });
   });
 

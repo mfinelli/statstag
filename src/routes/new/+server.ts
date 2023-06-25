@@ -12,7 +12,7 @@ export const POST: RequestHandler = async ({
   // TODO: regenerate this if it's not unique
   const slug = Math.random().toString(36).slice(2, 9);
 
-  let lb = await locals.db.connect(async (c) => {
+  const lb = await locals.db.connect(async (c) => {
     return await c.transaction(async (txn) => {
       return await txn.one(sql.typeAlias('slug')` INSERT INTO leaderboards
         (name, slug, created_at, updated_at) VALUES (${name}, ${slug}, NOW(),

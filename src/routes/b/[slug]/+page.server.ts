@@ -1,5 +1,4 @@
 import { redirect } from '@sveltejs/kit';
-import { z } from 'zod';
 import { sql } from '$lib/server/types';
 
 import type { PageServerLoad } from './$types';
