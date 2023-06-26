@@ -6,6 +6,9 @@
     header: false,
   };
 
+  let newScoreLabel = '';
+  let newScoreScore = 0;
+
   let newHeader = data.name;
 
   const update = async () => {
@@ -24,6 +27,32 @@
     }
 
     edit.header = false;
+  };
+
+  const updateScores = async () => {
+    let scoreForm = data.scores;
+
+    if (newScoreLabel !== '') {
+      scoreForm = [
+        ...scoreForm,
+        { label: newScoreLabel, score: newScoreScore },
+      ];
+    }
+
+    const response = await fetch('/b/' + data.slug + '/scores', {
+      method: 'POST',
+      body: JSON.stringify(scoreForm),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    data.scores = await response.json();
+
+    if (newScoreLabel !== '') {
+      newScoreLabel = '';
+      newScoreScore = 0;
+    }
   };
 </script>
 
@@ -52,8 +81,25 @@
   </h1>
 {/if}
 
-{#each data.scores as score}
+{#each data.scores as score (score.id)}
   <p>{score['label']}: {score['score']}</p>
-  <button>+</button>
-  <button>-</button>
+  <button
+    on:click|preventDefault={() => {
+      score['score'] += 1;
+      updateScores();
+    }}>+</button
+  >
+  <button
+    on:click|preventDefault={() => {
+      score['score'] -= 1;
+      updateScores();
+    }}>-</button
+  >
 {/each}
+
+<h2>Add new score</h2>
+<form on:submit|preventDefault={updateScores}>
+  <input type="text" bind:value={newScoreLabel} placeholder="Label" />
+  <input type="number" bind:value={newScoreScore} placeholder="0" />
+  <button>Add</button>
+</form>
