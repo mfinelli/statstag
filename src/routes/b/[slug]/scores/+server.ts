@@ -9,8 +9,20 @@ export const POST: RequestHandler = async ({
 }: RequestEvent) => {
   const form = await request.json();
 
+  type ReturnScore = {
+    id: number;
+    label: string;
+    score: number;
+  };
+
+  type Score = {
+    id?: number;
+    label: string;
+    score: number;
+  };
+
   const slug = params['slug'];
-  let returnScores = [];
+  let returnScores: ReturnScore[] = [];
 
   await locals.db.connect(async (c) => {
     await c.transaction(async (txn) => {
@@ -22,8 +34,12 @@ export const POST: RequestHandler = async ({
 
       const ids = scores.map((s) => s.id);
 
-      form.forEach(async (score) => {
-        if (Object.hasOwn(score, 'id') && ids.includes(score['id'])) {
+      form.forEach(async (score: Score) => {
+        if (
+          Object.hasOwn(score, 'id') &&
+          score['id'] !== undefined &&
+          ids.includes(score['id'])
+        ) {
           const old = scores.filter((s) => s['id'] === score['id'])[0];
           if (
             old['score'] !== score['score'] ||

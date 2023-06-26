@@ -4,7 +4,7 @@ import { sql } from '$lib/server/types';
 import type { PageServerLoad } from './$types';
 
 type Score = {
-  id: number;
+  id?: number;
   label: string;
   score: number;
 };
@@ -30,17 +30,17 @@ export const load: PageServerLoad<Leaderboard> = async ({ locals, params }) => {
       }
 
       scores = await txn.any(sql.typeAlias('score')`SELECT id, label, score
-        FROM scores WHERE leaderboard_id = ${leaderboard.id};`);
+        FROM scores WHERE leaderboard_id = ${leaderboard.id} ORDER BY
+        score DESC, label ASC;`);
     });
   });
 
-  return {
+  const lb: Leaderboard = {
     id: leaderboard === undefined ? 0 : leaderboard['id'],
     name: leaderboard === undefined ? '' : leaderboard['name'],
     slug: leaderboard === undefined ? '' : leaderboard['slug'],
-    scores:
-      scores === undefined
-        ? []
-        : scores.sort((a, b) => b['score'] - a['score']),
+    scores: scores === undefined ? [] : scores,
   };
+
+  return lb;
 };
