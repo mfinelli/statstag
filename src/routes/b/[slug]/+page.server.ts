@@ -30,7 +30,7 @@ export const load: PageServerLoad<Leaderboard> = async ({ locals, params }) => {
       }
 
       scores = await txn.any(sql.typeAlias('score')`SELECT id, label, score
-        FROM scores WHERE leaderboard_id = ${leaderboard.id}`);
+        FROM scores WHERE leaderboard_id = ${leaderboard.id};`);
     });
   });
 
@@ -38,6 +38,9 @@ export const load: PageServerLoad<Leaderboard> = async ({ locals, params }) => {
     id: leaderboard === undefined ? 0 : leaderboard['id'],
     name: leaderboard === undefined ? '' : leaderboard['name'],
     slug: leaderboard === undefined ? '' : leaderboard['slug'],
-    scores: scores === undefined ? [] : scores,
+    scores:
+      scores === undefined
+        ? []
+        : scores.sort((a, b) => b['score'] - a['score']),
   };
 };
