@@ -29,7 +29,7 @@ jobs:
     env:
       DATABASE_URL: postgres://statstag:statstag@localhost:5432/statstag
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: lts/*
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [main]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
       - uses: docker/metadata-action@v4
@@ -98,7 +98,7 @@ jobs:
     needs: [release]
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@v1
 
       # TODO: I'm not crazy about hardcoding the machine name "app" here, we
