@@ -16,7 +16,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "mvp.css": "^1.13.0",
-    "slonik": "^34.0.1",
+    "slonik": "^34.1.1",
     "slonik-sql-tag-raw": "^2.0.0"
   },
   "devDependencies": {
